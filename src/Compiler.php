@@ -3444,6 +3444,9 @@ class Compiler
             $tree = $this->importCache[$realPath];
         } else {
             $code   = file_get_contents($path);
+            // below is a hack to fix a failed Bootstrap import. HELP!!
+            $code = str_replace('#{&}', '&', $code);
+
             $parser = $this->parserFactory($path);
             $tree   = $parser->parse($code);
 
